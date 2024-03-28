@@ -34,11 +34,9 @@
         system = "aarch64-linux";
         specialArgs = {inherit inputs;};
         modules = [
-          ./hosts/taumac/configuration.nix
+          ./hosts/taumac
           inputs.apple-silicon.nixosModules.apple-silicon-support
-
-# apple-silicon
-#          home-manager-unstable.nixosModules.home-manager
+          home-manager-unstable.nixosModules.home-manager
         ]; 
       };
     };
