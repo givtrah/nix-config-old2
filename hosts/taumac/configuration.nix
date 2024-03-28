@@ -11,7 +11,30 @@
       # Include the necessary packages and configuration for Apple Silicon support (needs a nix-channel --add, see docs)
       # <apple-silicon-support/apple-silicon-support> # - since moving to flake, prob dont need a channel anymore
       # inputs.apple-silicon.nixosModules.apple-silicon-support
+    ../../features/sound.nix
+
+
+    ../../modules/users.nix
+
+
     ];
+
+
+  # Enable zram
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd"; # zstd default
+    memoryPercent = 50; # 50 default
+    priority = 100; # 5 default, higher = used first
+  };
+
+  # 8 GB ssd swap for insane overflow purposes
+  swapDevices = [ {
+    device = "/var/lib/swapfile";
+    size = 8*1024;
+    priority = 1; # default null = kernel decides, not optimal!
+  } ];
+
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -24,15 +47,21 @@
   # displaylink
   services.xserver.videoDrivers = [ "displaylink" "modesetting" ];
 
-
-
   # Use latest kernel - already defined in apple-silicon-support
   # boot.kernelPackages = pkgs.linuxPackages_latest;
- 
-  hardware.asahi.useExperimentalGPUDriver = true;
 
+
+  # enable GPU support and audio
+  hardware.asahi.useExperimentalGPUDriver = true;
+  hardware.asahi.experimentalGPUInstallMode = "replace";
+  hardware.asahi.setupAsahiSound = true;
+ 
+
+
+  # enable flakes + command and allow unfree packages
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
+  
   services.flatpak.enable = true;
 
 
@@ -82,23 +111,8 @@
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
-  # Enable sound.
-  # sound.enable = true;
-  # hardware.pulseaudio.enable = true;
-
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.ohm = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    packages = with pkgs; [ # Basically used as check for user packages....
-      neofetch
-      fastfetch
-      pfetch
-    ];
-  };
 
 
 programs.starship.enable = true;
@@ -124,6 +138,10 @@ programs.starship.enable = true;
     hunspellDicts.en_US
     gh
     neovim
+
+    armcord
+
+  
   #  zotero - no zotero for aarch64 in nix os - find out how to fix this!
   ];
 
