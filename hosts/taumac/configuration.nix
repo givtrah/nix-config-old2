@@ -140,7 +140,8 @@ programs.starship.enable = true;
     neovim
 
     armcord
-
+    neofetch
+    fastfetch
   
   #  zotero - no zotero for aarch64 in nix os - find out how to fix this!
   ];
