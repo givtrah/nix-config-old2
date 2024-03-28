@@ -8,12 +8,11 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      # Include the necessary packages and configuration for Apple Silicon support (needs a nix-channel --add, see docs)
-      # <apple-silicon-support/apple-silicon-support> # - since moving to flake, prob dont need a channel anymore
-      # inputs.apple-silicon.nixosModules.apple-silicon-support
+   
+    # features 
     ../../features/sound.nix
 
-
+    # modules
     ../../modules/users.nix
 
 
@@ -41,6 +40,7 @@
   boot.loader.efi.canTouchEfiVariables = false;
 
   # kernel parameters
+  # Fix Fn keys = F1-F12 is basic mode
   boot.kernelParams = [ "hid_apple.fnmode=2" ];
 
 
