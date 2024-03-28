@@ -7,6 +7,10 @@
 # https://tech.aufomm.com/my-nixos-journey-home-manager/
 # https://tech.aufomm.com/my-nixos-journey-flakes/
 
+# apple silicon stuff taken from (among other places):
+# https://github.com/yusefnapora/nix-config
+#
+
 {
   description = "Givtrah nix config";
 
@@ -31,8 +35,10 @@
         specialArgs = {inherit inputs;};
         modules = [
           ./hosts/taumac/configuration.nix
+          inputs.apple-silicon.nixosModules.apple-silicon-support
+
+# apple-silicon
 #          home-manager-unstable.nixosModules.home-manager
-#          { _module.args = { inherit inputs; }; }
         ]; 
       };
     };
