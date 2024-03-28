@@ -1,0 +1,44 @@
+
+# based on vimjoyer + 
+# https://github.com/reckenrode/nixos-configs
+
+# additional inspiration from
+# https://tech.aufomm.com/my-nixos-journey-intro-and-installation/
+# https://tech.aufomm.com/my-nixos-journey-home-manager/
+# https://tech.aufomm.com/my-nixos-journey-flakes/
+
+{
+  description = "Givtrah nix config";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-23.11";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
+
+    home-manager.url = "github:nix-community/home-manager?ref=release-23.11";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    home-manager-unstable.url = "github:nix-community/home-manager";
+    home-manager-unstable.inputs.nixpkgs.follows = "nixpkgs-unstable";
+
+    apple-silicon.url = "github:tpwrules/nixos-apple-silicon";
+
+  };
+
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, home-manager-unstable, ... }@inputs: {
+    nixosConfigurations = {
+      taumac = nixpkgs-unstable.lib.nixosSystem {
+        system = "aarch64-linux";
+        specialArgs = {inherit inputs;};
+        modules = [
+          ./hosts/taumac/configuration.nix
+#          home-manager-unstable.nixosModules.home-manager
+#          { _module.args = { inherit inputs; }; }
+        ]; 
+      };
+    };
+  };
+}
+
+
+
+
