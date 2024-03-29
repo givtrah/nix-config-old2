@@ -1,6 +1,6 @@
 # Machine specific configuration (often modified from auto-generated configuration.nix)
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, outputs, ... }:
 
 {
   imports =
