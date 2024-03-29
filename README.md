@@ -15,7 +15,7 @@ git config --global user.email yuor@email.com
 
 mkdir ~/.dotfiles
 cd ~/.dotfiles
-git clone https://github.com/givtrah/nixos
+git clone https://github.com/givtrah/nix-config
 
 # add all (new) files
 git add *
