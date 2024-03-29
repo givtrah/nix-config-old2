@@ -35,7 +35,6 @@
         specialArgs = {inherit inputs;};
         modules = [
           ./hosts/taumac
-          inputs.apple-silicon.nixosModules.apple-silicon-support
           home-manager-unstable.nixosModules.home-manager
         ]; 
       };
