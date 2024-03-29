@@ -34,7 +34,7 @@
         system = "aarch64-linux";
         specialArgs = {inherit inputs;};
         modules = [
-          ./hosts/taumac
+          ./nixos/hosts/taumac
           home-manager-unstable.nixosModules.home-manager
         ]; 
       };

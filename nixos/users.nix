@@ -5,6 +5,7 @@
   users.users.ohm = {
      isNormalUser = true;
      extraGroups = [ "wheel" "networkmanager" "libvirtd" ]; # wheel = sudo, networkmanager = change network, libvirtd = qemu. Consider adding input (doing?), docker and video (doing?).
+     shell = pkgs.bash;
      packages = with pkgs; [
        pfetch # can be used as check!
      ];

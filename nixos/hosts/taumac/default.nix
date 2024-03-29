@@ -13,8 +13,10 @@
     # features 
     ../../features/sound.nix
 
+
+  # should be moved to home-manager!
     # modules
-    ../../modules/users.nix
+    ../../../modules/users.nix
 
 
     ];
