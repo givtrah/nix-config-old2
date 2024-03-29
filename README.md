@@ -26,3 +26,11 @@ git commit -m "reason"
 # Overall directory structure
 
 
+# Nix os commands in dir
+
+sudo nixos-rebuild boot --flake ./#taumac --impure
+
+sudo nix flake update
+
+
+
